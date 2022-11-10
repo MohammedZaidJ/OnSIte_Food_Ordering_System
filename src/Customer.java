@@ -55,7 +55,6 @@ public class Customer {
 
                 case 2 -> {////order food
                     menu.DisplayMenu(1);
-                    System.out.println("===================================================");
                     System.out.println("Select which item: f:food b:beverages");
                     menuNo = Character.toLowerCase(sc.nextLine().charAt(0));
                     if (menuNo == 'f')
@@ -94,7 +93,7 @@ public class Customer {
                     else {
                         System.out.println("===================================================");
                         bool = false;
-                        System.out.println("Enter the dish number:");
+                        System.out.println("Enter the item number:");
                         try {
                             itemNo = Integer.parseInt(sc.nextLine());
                             itemNo--;
