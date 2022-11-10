@@ -66,8 +66,10 @@ public class Menu {
             if(check==1 && o.getStatus().equalsIgnoreCase("available"))
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
             else if(check==0){
-                System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
+                System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
             }
+            if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
+            else System.out.print("\n");
         }
         System.out.println("====================================================================================");
 
@@ -120,7 +122,6 @@ public class Menu {
 
                 case 3 -> {//Modify menu
                     DisplayMenu(0);
-                    System.out.println("=======================================");
                     System.out.println("Select which item: f:food b:beverages");
                     c = Character.toLowerCase(sc.nextLine().charAt(0));
                     if (c == 'f')
@@ -233,8 +234,8 @@ public class Menu {
         System.out.println("Enter Item number:");
         try {
             itemNo = Integer.parseInt(sc.nextLine());
-            if (itemNo < menu.size() && itemNo > -1) {
-                menu.remove(itemNo - 1);
+            if (itemNo <=menu.size() && itemNo > 0) {
+                menu.remove(itemNo-1);
                 bool = true;
             }
             if (!bool) {
