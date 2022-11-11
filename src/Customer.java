@@ -8,7 +8,7 @@ public class Customer {
     ArrayList<CartOrders> cart = new ArrayList<>();
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc = new Scanner(System.in);
-    Menu menu = new Menu();
+    Menu menu=new Menu();
     int i, itemNo, quantity, count;
     String itemName;
     char menuNo;
@@ -127,8 +127,6 @@ public class Customer {
                         if (Character.toLowerCase(key) == 'y') {
                             System.out.println("Enter your Name MR/MRS : ");
                             String Name = sc.nextLine();
-                            System.out.println("Enter your phone no : ");
-                            String phoneNo = sc.nextLine();
                             System.out.println("Enter your table no : ");
                             int tableNo = Integer.parseInt(sc.nextLine());
                             System.out.println("If you have any remark : y:Yes / n:No ");
@@ -139,7 +137,25 @@ public class Customer {
                             } else {
                                 remark = "-";
                             }
-                            Order order = new Order(Name, tableNo, totalPrice, remark, cart);
+                            int count2;
+                            String paymentBy;
+                            System.out.println("Payment Mode :");
+                            System.out.println("     1. UPI");
+                            System.out.println("     2. Cash");
+                            System.out.println("Enter your choice : ");
+                            do {
+                                try {
+                                    count2 = Integer.parseInt(sc.nextLine());
+                                    if (count2 > 3)
+                                        System.err.println("Enter the valid key");
+                                } catch (Exception e) {
+                                    count2 = 3;
+                                    System.err.println("Enter the valid key");
+                                }
+                            }while (count2!=1 && count2!=2);
+                            if(count2==1) paymentBy="UPI";
+                            else paymentBy="Cash";
+                            Order order = new Order(Name, tableNo, totalPrice, remark,paymentBy, cart);
                             orderList.addOrders(order);
                             System.out.println("Ordered Successfully");
                             if (cart.size() > 0) displayCart();
@@ -159,17 +175,17 @@ public class Customer {
             try {
                 itemNo = Integer.parseInt(sc.nextLine());
                 if (menu.size() <= itemNo) {
-                    System.out.println("Enter the valid key");
+                    System.err.println("Enter the valid key");
                 } else count = 0;
             } catch (Exception e) {
-                System.out.println("Enter the valid key");
+                System.err.println("Enter the valid key");
             }
         } while (count != 0);
         itemPrice = 0;
         boolean bool = false;
         i = 1;
         for (Item fd : menu) {
-            if (itemNo == i++) {
+            if (itemNo == i && fd.getStatus().equalsIgnoreCase("available")) {
                 if (fd.getSize().equalsIgnoreCase("unlimited")) {
                     System.out.println("Size available for " + fd.getItemName());
                     System.out.println("no. Size    Price    ");
@@ -200,6 +216,7 @@ public class Customer {
                 itemPrice = price * quantity;
                 bool = true;
             }
+            if(fd.getStatus().equalsIgnoreCase("available")) i++;
         }
         totalPrice += ((itemPrice * 0.06) + itemPrice);
         if (!bool) {

@@ -32,12 +32,12 @@ public class CustomerOrderList {
         for (Order o : orders) {
             if (!o.getOrderStatus().equalsIgnoreCase("notCompleted")) {
                 ArrayList<CartOrders> items = o.getOrderItems();
-                System.out.printf("%5d %10s %10d ", count++, o.getCustomerName(), o.getTableNo());
+                System.out.printf("%5d %12s %15d ", count++, o.getCustomerName(), o.getTableNo());
                 System.out.printf("%13.2f %15s  %13s", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
                 for (int i = 0; i < items.size(); i++) {
                     if (i > 0) System.out.print("                                                   ");
                     System.out.printf("\t%10d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
-                    if (i < items.size() - 1 && i>0) System.out.print(",\n%13s"+" ");
+                    if (i < items.size() - 1) System.out.print(",\n%19s"+" ");
                 }
                 System.out.println();
             }
@@ -61,8 +61,14 @@ public class CustomerOrderList {
 
     public void conformOrder(int index) {
         System.out.println("=====================================================");
-        System.out.println("1.Completed order");
-        System.out.println("2.Cancel order");
+        System.out.println(" Customer Details:-");
+        System.out.println(" Name    : "+orders.get(index).getCustomerName());
+        System.out.println(" TableNo : "+orders.get(index).getTableNo());
+        System.out.println(" Price   : "+orders.get(index).getTotalPrice());
+        System.out.print(" Get Payment From Customer: ");
+        System.out.println(" Customer Selected payment Mode as "+orders.get(index).getPaymentBy().toUpperCase());
+        System.out.println(" 1. If customer paid confirm order");
+        System.out.println(" 2. else Cancel order");
         System.out.println("Enter your choice :");
         do {
             try {

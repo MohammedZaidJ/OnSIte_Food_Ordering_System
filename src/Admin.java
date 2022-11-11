@@ -39,6 +39,7 @@ public class Admin {
     }
     public void AdminView(){
         int count;
+        sc.nextLine();
         do{
             System.out.println("1.Restaurant Details");
             System.out.println("2.Menu");
@@ -91,7 +92,7 @@ public class Admin {
 
     }
 
-    private void restaurantDetail() {
+    public void restaurantDetail() {
         System.out.println("=========================================");
         System.out.println("||-> Name             : "+rest.getName());
         System.out.println("||-> Location         : "+rest.getAddress());
@@ -114,7 +115,6 @@ public class Admin {
 
     }
     public void adminLogin(){
-        Admin admin=new Admin();
         int flag = 0;
         do {
             Scanner sc=new Scanner(System.in);
@@ -128,8 +128,8 @@ public class Admin {
                 System.err.println("Enter valid username and password.");
             }
         } while (flag != 1);
-        System.out.println("you have login successfully");
-        admin.AdminView();
+        System.out.println("you have successfully logged in");
+        AdminView();
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
+
     ArrayList<Item> foodMenu = new ArrayList<>();
     ArrayList<Item> beverages = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
@@ -15,7 +16,7 @@ public class Menu {
     float mediumSizePrice;
     float largeSizePrice = 0;
 
-    private void addToMenu() {
+    public void addToMenu() {
         foodMenu.add(new Item("Chilli Paneer", "available", "Veg", "limited", 150, 0));
         foodMenu.add(new Item("Tandoori Aloo", "available", "Veg", "unlimited", 180, 300));
         foodMenu.add(new Item("Tangri kabab", "available", "Non Veg", "unlimited", 120, 220));
@@ -26,7 +27,7 @@ public class Menu {
         foodMenu.add(new Item("Cheese Korma", "available", "Veg", "limited", 170, 0));
         foodMenu.add(new Item("Aloo Gobhi", "available", "Veg", "limited", 150, 0));
         beverages.add(new Item("Lassi", "available", "Veg", "unlimited", 60, 100));
-        beverages.add(new Item("Coca-Cola", "available", "Veg", "unlimited", 120, 80));
+        beverages.add(new Item("Coca-Cola", "available", "Veg", "unlimited", 80, 120));
         beverages.add(new Item("Red Bull", "available", "Veg", "limited", 50, 0));
         beverages.add(new Item("Soy milk", "available", "Veg", "unlimited", 40, 80));
         beverages.add(new Item("French coffee", "available", "Veg", "limited", 100, 0));
@@ -42,7 +43,7 @@ public class Menu {
     public void displayFoodMenu(int check) {
         System.out.println("===================================== FOOD MENU =====================================");
         System.out.printf("%10s %20s %15s %13s %16s\n", "Item No ", "Item Name", "Permit Status", "Size", "Price(LT/ULT)");
-        System.out.println("==================================================================================");
+        System.out.println("=====================================================================================");
         i = 1;
         for (Item o : foodMenu) {
             if(check==1 && o.getStatus().equals("available"))
@@ -53,25 +54,25 @@ public class Menu {
                 else System.out.print("\n");
             }
         }
-        System.out.println("=====================================================================================");
+        System.out.println("======================================================================================");
 
     }
 
     public void displayBeverageMenu(int check) {
         System.out.println("=================================== BEVERAGES MENU ===================================");
         System.out.printf("%10s %20s %15s %13s %16s\n", "Item No ", "Item Name", "Permit Status", "Size", "Price(MN/LG)");
-        System.out.println("====================================================================================");
+        System.out.println("======================================================================================");
         i = 1;
         for (Item o : beverages) {
             if(check==1 && o.getStatus().equalsIgnoreCase("available"))
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
             else if(check==0){
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-            }
-            if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
-            else System.out.print("\n");
+                if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable");
+                else System.out.print("\n");
+          }
         }
-        System.out.println("====================================================================================");
+        System.out.println("======================================================================================");
 
     }
 
@@ -132,7 +133,6 @@ public class Menu {
                 }
                 case 4 -> { //Remove food
                     DisplayMenu(0);
-                    System.out.println("=======================================");
                     System.out.println("Select which item: f:food b:beverages");
                     c = Character.toLowerCase(sc.nextLine().charAt(0));
                     if (c == 'f') deleteItemFromMenu(foodMenu);
