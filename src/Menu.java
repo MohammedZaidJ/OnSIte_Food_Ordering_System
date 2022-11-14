@@ -1,7 +1,6 @@
 import category.Item;
 //import category.ItemName;
 
-import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -86,206 +85,201 @@ public class Menu {
     }
 
     public void DisplayMenu(int check) {
-//        int count;
-//        do{
-//            System.out.println("1.Food menu");
-//            System.out.println("2.Beverage menu");
-//            System.out.println("3.Show all menu");
-//            System.out.println("0.Back to main ");
-//            System.out.println("Enter your choice:");
-//            try{
-//                count=Integer.parseInt(sc.nextLine());
-//                if(count>3) System.err.println("Enter the valid key");
-//            }catch (Exception e){
-//                count=10;
-//                System.err.println("Enter the valid key");
-//            }
-////            switch ()
-//        }while (count!=0);
         displayFoodMenu(check);
         System.out.println("\n");
         displayBeverageMenu(check);
     }
 
-    public void editMenu() {
-        int count;
-        do {
-            System.out.println("1.View menu");
-            System.out.println("2.Add new dish");
-            System.out.println("3.Modify dish");
-            System.out.println("4.Remove dish");
-            System.out.println("0.Back to main menu");
-            System.out.println("Enter your choice :");
-            try {
-                count = Integer.parseInt(sc.nextLine());
-                if (count > 5) {
-                    System.err.println("Enter the valid key");
-                }
-            } catch (Exception e) { count=10;
-                System.err.println("Enter the valid key");
-            }
-            switch (count) {
-                case 1 -> //View menu
-                        DisplayMenu(0);
-                case 2 -> //Add new food
-                    addItemTOMenu();
-
-                case 3 -> {//Modify menu
-                    DisplayMenu(0);
-                    System.out.println("Select which item: f:food b:beverages");
-                    c = Character.toLowerCase(sc.nextLine().charAt(0));
-                    if (c == 'f')
-                        modifyItemInMenu(foodMenu);
-                    else
-                        modifyItemInMenu(beverages);
-                    System.out.println("=======================================");
-                }
-                case 4 -> { //Remove food
-                    DisplayMenu(0);
-                    System.out.println("Select which item: f:food b:beverages");
-                    c = Character.toLowerCase(sc.nextLine().charAt(0));
-                    if (c == 'f') deleteItemFromMenu(foodMenu);
-                    else deleteItemFromMenu(beverages);
-                    System.out.println("=======================================");
-                }
-
-
-            }
-
-        } while (count != 0);
-    }
-
-    private void modifyItemInMenu(ArrayList<Item> menu) {
-        System.out.println("Enter Item number:");
-        boolean bool = false;
-        try {
-            itemNo = Integer.parseInt(sc.nextLine());
-        } catch (Exception e) {
-            System.err.println("Enter the valid item Id");
-        }
-        i = 1;
-        for (Item fd : menu) {
-            if (itemNo == i++) {
-                int count1;
-                do {
-                    System.out.println("1.Item Name       : " + fd.getItemName() +
-                            "\n2.Status          : " + fd.getStatus() +
-                            "\n3.PermitStatus    : " + fd.getPermitStatus() +
-                            "\n4.Size            : " + fd.getSize() +
-                            "\n5.MediumSizePrice : " + fd.getMediumSizePrice() +
-                            "\n6.LargeSizePrice  : " + fd.getLargeSizePrice() +
-                            "\n0.back to main menu");
-                    System.out.println("Enter your choice to change the data:");
-                    try {
-                        count1 = Integer.parseInt(sc.nextLine());
-                    } catch (Exception e) {
-                        count1 = 10;
+    public void editMenu(String key) {
+        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+        else {
+            int count;
+            do {
+                System.out.println("1.View menu");
+                System.out.println("2.Add new dish");
+                System.out.println("3.Modify dish");
+                System.out.println("4.Remove dish");
+                System.out.println("0.Back to main menu");
+                System.out.println("Enter your choice :");
+                try {
+                    count = Integer.parseInt(sc.nextLine());
+                    if (count > 5) {
                         System.err.println("Enter the valid key");
                     }
-                    switch (count1) {
-                        case 1 -> {
-                            System.out.println("Enter the food Name : ");
-                            fd.setItemName(sc.nextLine());
+                } catch (Exception e) {
+                    count = 10;
+                    System.err.println("Enter the valid key");
+                }
+                switch (count) {
+                    case 1 -> //View menu
+                            DisplayMenu(0);
+                    case 2 -> //Add new food
+                            addItemTOMenu(key);
+
+                    case 3 -> {//Modify menu
+                        DisplayMenu(0);
+                        System.out.println("Select which item: f:food b:beverages");
+                        c = Character.toLowerCase(sc.nextLine().charAt(0));
+                        if (c == 'f')
+                            modifyItemInMenu(foodMenu,key);
+                        else
+                            modifyItemInMenu(beverages,key);
+                        System.out.println("=======================================");
+                    }
+                    case 4 -> { //Remove food
+                        DisplayMenu(0);
+                        System.out.println("Select which item: f:food b:beverages");
+                        c = Character.toLowerCase(sc.nextLine().charAt(0));
+                        if (c == 'f') deleteItemFromMenu(foodMenu,key);
+                        else deleteItemFromMenu(beverages,key);
+                        System.out.println("=======================================");
+                    }
+
+
+                }
+
+            } while (count != 0);
+        }
+    }
+
+    private void modifyItemInMenu(ArrayList<Item> menu,String key) {
+        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+        else {
+            System.out.println("Enter Item number:");
+            boolean bool = false;
+            try {
+                itemNo = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.err.println("Enter the valid item Id");
+            }
+            i = 1;
+            for (Item fd : menu) {
+                if (itemNo == i++) {
+                    int count1;
+                    do {
+                        System.out.println("1.Item Name       : " + fd.getItemName() +
+                                "\n2.Status          : " + fd.getStatus() +
+                                "\n3.PermitStatus    : " + fd.getPermitStatus() +
+                                "\n4.Size            : " + fd.getSize() +
+                                "\n5.MediumSizePrice : " + fd.getMediumSizePrice() +
+                                "\n6.LargeSizePrice  : " + fd.getLargeSizePrice() +
+                                "\n0.back to main menu");
+                        System.out.println("Enter your choice to change the data:");
+                        try {
+                            count1 = Integer.parseInt(sc.nextLine());
+                        } catch (Exception e) {
+                            count1 = 10;
+                            System.err.println("Enter the valid key");
                         }
-                        case 2 -> {
-                            System.out.println("Enter the food status: y=Available/n=NotAvailable");
-                            if (Character.toLowerCase(sc.nextLine().charAt(0)) == 'n') {
-                                fd.setStatus("NotAvailable");
+                        switch (count1) {
+                            case 1 -> {
+                                System.out.println("Enter the food Name : ");
+                                fd.setItemName(sc.nextLine());
                             }
-                        }
-                        case 3 -> {
-                            System.out.println("Enter the food permit status: \n1.veg /2.non veg");
-                            int stsNo = Integer.parseInt(sc.nextLine());
-                            if (stsNo == 1) permitStatus = "Veg";
-                            else permitStatus = "Non-Veg";
-                            fd.setPermitStatus(permitStatus);
-                        }
-                        case 4 -> {
-                            System.out.println("Enter the Size :\n1.limited 2.unlimited");
-                            int sizeNO = Integer.parseInt(sc.nextLine());
-                            if (sizeNO == 1) {
-                                size = "limited";
-                                fd.setLargeSizePrice(0);
-                            } else {
-                                size = "unlimited";
+                            case 2 -> {
+                                System.out.println("Enter the food status: y=Available/n=NotAvailable");
+                                if (Character.toLowerCase(sc.nextLine().charAt(0)) == 'n') {
+                                    fd.setStatus("NotAvailable");
+                                }
+                            }
+                            case 3 -> {
+                                System.out.println("Enter the food permit status: \n1.veg /2.non veg");
+                                int stsNo = Integer.parseInt(sc.nextLine());
+                                if (stsNo == 1) permitStatus = "Veg";
+                                else permitStatus = "Non-Veg";
+                                fd.setPermitStatus(permitStatus);
+                            }
+                            case 4 -> {
+                                System.out.println("Enter the Size :\n1.limited 2.unlimited");
+                                int sizeNO = Integer.parseInt(sc.nextLine());
+                                if (sizeNO == 1) {
+                                    size = "limited";
+                                    fd.setLargeSizePrice(0);
+                                } else {
+                                    size = "unlimited";
+                                    System.out.println("Enter the large size Price");
+                                    largeSizePrice = Float.parseFloat(sc.nextLine());
+                                    fd.setLargeSizePrice(largeSizePrice);
+                                }
+                                fd.setSize(size);
+                            }
+                            case 5 -> {
+                                System.out.println("Enter the medium size Price:");
+                                mediumSizePrice = Float.parseFloat(sc.nextLine());
+                                fd.setMediumSizePrice(mediumSizePrice);
+                            }
+                            case 6 -> {
                                 System.out.println("Enter the large size Price");
                                 largeSizePrice = Float.parseFloat(sc.nextLine());
                                 fd.setLargeSizePrice(largeSizePrice);
                             }
-                            fd.setSize(size);
                         }
-                        case 5 -> {
-                            System.out.println("Enter the medium size Price:");
-                            mediumSizePrice = Float.parseFloat(sc.nextLine());
-                            fd.setMediumSizePrice(mediumSizePrice);
-                        }
-                        case 6 -> {
-                            System.out.println("Enter the large size Price");
-                            largeSizePrice = Float.parseFloat(sc.nextLine());
-                            fd.setLargeSizePrice(largeSizePrice);
-                        }
-                    }
-                } while (count1 != 0);
-                bool = true;
+                    } while (count1 != 0);
+                    bool = true;
 
-            }
-        }
-        if (!bool) {
-            System.err.println("item not found");
-        } else {
-            System.out.println("item updated successfully");
-        }
-
-    }
-
-    private void deleteItemFromMenu(ArrayList<Item> menu) {
-        boolean bool = false;
-        System.out.println("Enter Item number:");
-        try {
-            itemNo = Integer.parseInt(sc.nextLine());
-            if (itemNo <=menu.size() && itemNo > 0) {
-                menu.remove(itemNo-1);
-                bool = true;
+                }
             }
             if (!bool) {
                 System.err.println("item not found");
             } else {
-                System.out.println("item delete successfully");
+                System.out.println("item updated successfully");
             }
-        } catch (Exception e) {
-            System.err.println("Enter the valid item Id");
         }
     }
 
-    public void addItemTOMenu() {
-        System.out.println("=======================================");
-        System.out.println("Enter the food name : ");
-        //    Item(foodName,status, permitStatus, size,mediumSizePrice, largeSizePrice)
-        String itemName = sc.nextLine();
-        System.out.println("Enter the food permit status: \n1.veg /2.non veg");
-        int stsNo = Integer.parseInt(sc.nextLine());
-        if (stsNo == 1) permitStatus = "Veg";
-        else permitStatus = "Non-Veg";
-        System.out.println("Enter the size :\n1.limited 2.unlimited");
-        int sizeNO = Integer.parseInt(sc.nextLine());
-        System.out.println("Enter the medium size price:");
-        mediumSizePrice = Float.parseFloat(sc.nextLine());
-        if (sizeNO == 2) {
-            size = "None";
-            System.out.println("Enter the large size price:");
-            largeSizePrice = Float.parseFloat(sc.nextLine());
-        } else size = "Available";
-        System.out.println("Select which list to add item: f:food b:beverages");
-        c = Character.toLowerCase(sc.nextLine().charAt(0));
-        String status = "Available";
-        if (c == 'f')
-            foodMenu.add(new Item(itemName, status, permitStatus, size, mediumSizePrice, largeSizePrice));
-        else
-            beverages.add(new Item(itemName, status, permitStatus, size, mediumSizePrice, largeSizePrice));
-        System.out.println("item added successfully");
-
-        System.out.println("=======================================");
+    private void deleteItemFromMenu(ArrayList<Item> menu,String key) {
+        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+        else {
+            boolean bool = false;
+            System.out.println("Enter Item number:");
+            try {
+                itemNo = Integer.parseInt(sc.nextLine());
+                if (itemNo <= menu.size() && itemNo > 0) {
+                    menu.remove(itemNo - 1);
+                    bool = true;
+                }
+                if (!bool) {
+                    System.err.println("item not found");
+                } else {
+                    System.out.println("item delete successfully");
+                }
+            } catch (Exception e) {
+                System.err.println("Enter the valid item Id");
+            }
+        }
     }
 
+    public void addItemTOMenu(String key) {
+        if (!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+        else {
+            System.out.println("=======================================");
+            System.out.println("Enter the food name : ");
+            //    Item(foodName,status, permitStatus, size,mediumSizePrice, largeSizePrice)
+            String itemName = sc.nextLine();
+            System.out.println("Enter the food permit status: \n1.veg /2.non veg");
+            int stsNo = Integer.parseInt(sc.nextLine());
+            if (stsNo == 1) permitStatus = "Veg";
+            else permitStatus = "Non-Veg";
+            System.out.println("Enter the size :\n1.limited 2.unlimited");
+            int sizeNO = Integer.parseInt(sc.nextLine());
+            System.out.println("Enter the medium size price:");
+            mediumSizePrice = Float.parseFloat(sc.nextLine());
+            if (sizeNO == 2) {
+                size = "None";
+                System.out.println("Enter the large size price:");
+                largeSizePrice = Float.parseFloat(sc.nextLine());
+            } else size = "Available";
+            System.out.println("Select which list to add item: f:food b:beverages");
+            c = Character.toLowerCase(sc.nextLine().charAt(0));
+            String status = "Available";
+            if (c == 'f')
+                foodMenu.add(new Item(itemName, status, permitStatus, size, mediumSizePrice, largeSizePrice));
+            else
+                beverages.add(new Item(itemName, status, permitStatus, size, mediumSizePrice, largeSizePrice));
+            System.out.println("item added successfully");
+
+            System.out.println("=======================================");
+        }
+    }
 }
 

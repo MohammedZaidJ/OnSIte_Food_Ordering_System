@@ -158,7 +158,9 @@ public class Customer {
                             Order order = new Order(Name, tableNo, totalPrice, remark,paymentBy, cart);
                             orderList.addOrders(order);
                             displayCart();
-                            System.out.println("Ordered Successfully");
+                            System.out.println("              Ordered Successfully");
+                            count=0;
+                            System.out.println("=====================================================");
                         }
                     }
                 }

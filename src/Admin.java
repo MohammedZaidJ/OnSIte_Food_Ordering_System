@@ -57,7 +57,7 @@ public class Admin {
             switch (count) {
                     case 1 -> restaurantDetail();
 
-                    case 2 -> menu.editMenu();
+                    case 2 -> menu.editMenu("AdminView");
                     case 3 -> {
                         if(CustomerOrderList.orders.size()>0)
                             orderList.viewOrders();
