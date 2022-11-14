@@ -33,9 +33,9 @@ public class Main {
         }
     }while(count!=0);
 
-
-        Menu menu=new Menu();
-        menu.editMenu();
+//
+//        Menu menu=new Menu();
+//        menu.editMenu();
 
 ////
 //        Customer customer1=new Customer();

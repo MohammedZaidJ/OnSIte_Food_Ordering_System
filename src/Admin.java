@@ -7,7 +7,7 @@ public class Admin {
 
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc=new Scanner(System.in);
-    Menu menu=new Menu();
+    Menu menu=Menu.getMenu();
     Restaurant rest;
     public void adminSignup(){
         System.out.println("======================================================");

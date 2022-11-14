@@ -35,9 +35,9 @@ public class CustomerOrderList {
                 System.out.printf("%5d %12s %15d ", count++, o.getCustomerName(), o.getTableNo());
                 System.out.printf("%13.2f %15s  %13s", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
                 for (int i = 0; i < items.size(); i++) {
-                    if (i > 0) System.out.print("                                                   ");
+                    if (i > 0) System.out.print("\n                                                   ");
                     System.out.printf("\t%10d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
-                    if (i < items.size() - 1) System.out.print(",\n%19s"+" ");
+                    if (i < items.size() - 1) System.out.print(",\n%29s"+" ");
                 }
                 System.out.println();
             }
@@ -66,9 +66,9 @@ public class CustomerOrderList {
         System.out.println(" TableNo : "+orders.get(index).getTableNo());
         System.out.println(" Price   : "+orders.get(index).getTotalPrice());
         System.out.print(" Get Payment From Customer: ");
-        System.out.println(" Customer Selected payment Mode as "+orders.get(index).getPaymentBy().toUpperCase());
-        System.out.println(" 1. If customer paid confirm order");
-        System.out.println(" 2. else Cancel order");
+        System.out.println(orders.get(index).getCustomerName()+" Selected payment Mode as "+orders.get(index).getPaymentBy().toUpperCase());
+        System.out.println(" 1. Confirm payment");
+        System.out.println(" 2. Cancel order");
         System.out.println("Enter your choice :");
         do {
             try {

@@ -1,10 +1,22 @@
 import category.Item;
 //import category.ItemName;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
+    private static Menu menu=null;
+    private Menu(){
+        addToMenu();
+    }
+    static public Menu getMenu(){
+        if(menu==null){
+            menu=new Menu();
+        }
+        return menu;
+    }
+
 
     ArrayList<Item> foodMenu = new ArrayList<>();
     ArrayList<Item> beverages = new ArrayList<>();
@@ -36,9 +48,6 @@ public class Menu {
 //        foodMenu.add(new Item(ItemName.Chilli_Paneer));
     }
 
-    public Menu() {
-        this.addToMenu();
-    }
 
     public void displayFoodMenu(int check) {
         System.out.println("===================================== FOOD MENU =====================================");
@@ -68,7 +77,7 @@ public class Menu {
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
             else if(check==0){
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-                if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable");
+                if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
                 else System.out.print("\n");
           }
         }

@@ -8,7 +8,7 @@ public class Customer {
     ArrayList<CartOrders> cart = new ArrayList<>();
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc = new Scanner(System.in);
-    Menu menu=new Menu();
+    Menu menu=Menu.getMenu();
     int i, itemNo, quantity, count;
     String itemName;
     char menuNo;
@@ -157,9 +157,8 @@ public class Customer {
                             else paymentBy="Cash";
                             Order order = new Order(Name, tableNo, totalPrice, remark,paymentBy, cart);
                             orderList.addOrders(order);
+                            displayCart();
                             System.out.println("Ordered Successfully");
-                            if (cart.size() > 0) displayCart();
-                            else System.out.println("===================================================");
                         }
                     }
                 }
@@ -174,7 +173,7 @@ public class Customer {
         do {
             try {
                 itemNo = Integer.parseInt(sc.nextLine());
-                if (menu.size() <= itemNo) {
+                if (menu.size() < itemNo) {
                     System.err.println("Enter the valid key");
                 } else count = 0;
             } catch (Exception e) {
