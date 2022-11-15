@@ -1,12 +1,11 @@
 package category;
 public class Item {
-    String itemName;
-    String status;
-    String permitStatus;
-    String size;
-    float mediumSizePrice;
-    float largeSizePrice;
-    ItemName itemName1;
+    private String itemName;
+    private String status;
+    private String permitStatus;
+    private String size;
+    private float mediumSizePrice;
+    private float largeSizePrice;
 
     public Item( String itemName, String status, String permitStatus, String size, float mediumSizePrice, float largeSizePrice) {
         this.itemName = itemName;
@@ -16,10 +15,6 @@ public class Item {
         this.mediumSizePrice = mediumSizePrice;
         this.largeSizePrice = largeSizePrice;
     }
-
-//    public Item(ItemName itemName) {
-//        this.itemName1 = itemName;
-//    }
 
     public String getItemName() {
         return itemName;

@@ -2,12 +2,11 @@ import Data.Restaurant;
 import java.util.Scanner;
 
 public class Admin {
-    String userName;
-    String password;
+    private String userName;
+    private String password;
 
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc=new Scanner(System.in);
-    Menu menu=Menu.getMenu();
     Restaurant rest;
     public void adminSignup(){
         System.out.println("======================================================");
@@ -57,7 +56,10 @@ public class Admin {
             switch (count) {
                     case 1 -> restaurantDetail();
 
-                    case 2 -> menu.editMenu("AdminView");
+                    case 2 -> {
+                        Menu menu=Menu.getMenu();
+                        menu.editMenu("AdminView");
+                    }
                     case 3 -> {
                         if(CustomerOrderList.orders.size()>0)
                             orderList.viewOrders();
@@ -97,9 +99,9 @@ public class Admin {
         System.out.println("||-> Name             : "+rest.getName());
         System.out.println("||-> Location         : "+rest.getAddress());
         System.out.println("||-> Total Customer   : "+CustomerOrderList.orders.size());
-        System.out.println("||-> Completed Orders : "+orderList.completedOrder);
+        System.out.println("||-> Completed Orders : "+orderList.getCompletedOrder());
         System.out.println("||-> Pending Orders   : "+orderList.pendingOrder());
-        System.out.printf("||-> Total Sales      : %.2f\n",orderList.totalSale);
+        System.out.printf("||-> Total Sales      : %.2f\n",orderList.getTotalSale());
         System.out.println("=========================================");
     }
 

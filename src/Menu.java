@@ -1,17 +1,17 @@
 import category.Item;
-//import category.ItemName;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    private static Menu menu=null;
-    private Menu(){
+    private static Menu menu = null;
+
+    private Menu() {
         addToMenu();
     }
-    static public Menu getMenu(){
-        if(menu==null){
-            menu=new Menu();
+
+    static public Menu getMenu() {
+        if (menu == null) {
+            menu = new Menu();
         }
         return menu;
     }
@@ -22,10 +22,10 @@ public class Menu {
     Scanner sc = new Scanner(System.in);
     private String permitStatus;
     private String size;
-    char c;
-    int itemNo, i = 0;
-    float mediumSizePrice;
-    float largeSizePrice = 0;
+    private char c;
+    private int itemNo, i = 0;
+    private float mediumSizePrice;
+    private float largeSizePrice = 0;
 
     public void addToMenu() {
         foodMenu.add(new Item("Chilli Paneer", "available", "Veg", "limited", 150, 0));
@@ -44,7 +44,6 @@ public class Menu {
         beverages.add(new Item("French coffee", "available", "Veg", "limited", 100, 0));
         beverages.add(new Item("Cold coffee", "available", "Veg", "limited", 100, 0));
         beverages.add(new Item("Kashmir Tea", "available", "Veg", "limited", 30, 0));
-//        foodMenu.add(new Item(ItemName.Chilli_Paneer));
     }
 
 
@@ -54,11 +53,11 @@ public class Menu {
         System.out.println("=====================================================================================");
         i = 1;
         for (Item o : foodMenu) {
-            if(check==1 && o.getStatus().equals("available"))
+            if (check == 1 && o.getStatus().equals("available"))
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-            else if(check==0){
+            else if (check == 0) {
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-                if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
+                if (!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
                 else System.out.print("\n");
             }
         }
@@ -72,13 +71,13 @@ public class Menu {
         System.out.println("======================================================================================");
         i = 1;
         for (Item o : beverages) {
-            if(check==1 && o.getStatus().equalsIgnoreCase("available"))
+            if (check == 1 && o.getStatus().equalsIgnoreCase("available"))
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-            else if(check==0){
+            else if (check == 0) {
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
-                if(!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
+                if (!o.getStatus().equalsIgnoreCase("available")) System.out.print("-> NotAvailable\n");
                 else System.out.print("\n");
-          }
+            }
         }
         System.out.println("======================================================================================");
 
@@ -91,7 +90,7 @@ public class Menu {
     }
 
     public void editMenu(String key) {
-        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+        if (!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
         else {
             int count;
             do {
@@ -121,17 +120,17 @@ public class Menu {
                         System.out.println("Select which item: f:food b:beverages");
                         c = Character.toLowerCase(sc.nextLine().charAt(0));
                         if (c == 'f')
-                            modifyItemInMenu(foodMenu,key);
+                            modifyItemInMenu(foodMenu, key);
                         else
-                            modifyItemInMenu(beverages,key);
+                            modifyItemInMenu(beverages, key);
                         System.out.println("=======================================");
                     }
                     case 4 -> { //Remove food
                         DisplayMenu(0);
                         System.out.println("Select which item: f:food b:beverages");
                         c = Character.toLowerCase(sc.nextLine().charAt(0));
-                        if (c == 'f') deleteItemFromMenu(foodMenu,key);
-                        else deleteItemFromMenu(beverages,key);
+                        if (c == 'f') deleteItemFromMenu(foodMenu, key);
+                        else deleteItemFromMenu(beverages, key);
                         System.out.println("=======================================");
                     }
 
@@ -142,8 +141,8 @@ public class Menu {
         }
     }
 
-    private void modifyItemInMenu(ArrayList<Item> menu,String key) {
-        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+    private void modifyItemInMenu(ArrayList<Item> menu, String key) {
+        if (!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
         else {
             System.out.println("Enter Item number:");
             boolean bool = false;
@@ -227,8 +226,8 @@ public class Menu {
         }
     }
 
-    private void deleteItemFromMenu(ArrayList<Item> menu,String key) {
-        if(!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
+    private void deleteItemFromMenu(ArrayList<Item> menu, String key) {
+        if (!key.equalsIgnoreCase("AdminView")) System.out.println("Only admin can modify");
         else {
             boolean bool = false;
             System.out.println("Enter Item number:");

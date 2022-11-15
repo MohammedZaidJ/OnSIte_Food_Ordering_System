@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class CustomerOrderList {
 
-    public float totalSale = 0;
-    public int completedOrder=0;
+    private float totalSale = 0;
+    private int completedOrder=0;
     int count;
     Scanner sc = new Scanner(System.in);
     private static CustomerOrderList ordersList = null;
@@ -128,4 +128,11 @@ public class CustomerOrderList {
         System.out.println("===================================================================================================");
     }
 
+    public float getTotalSale() {
+        return totalSale;
+    }
+
+    public int getCompletedOrder() {
+        return completedOrder;
+    }
 }

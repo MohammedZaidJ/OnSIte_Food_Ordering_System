@@ -1,10 +1,7 @@
 package Data;
 public class Restaurant {
-    String name;
-    String address;
-    public Restaurant() {
-
-    }
+    private final String name;
+    private final String address;
 
     public Restaurant(String name, String address) {
         this.name = name;
@@ -19,11 +16,4 @@ public class Restaurant {
         return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

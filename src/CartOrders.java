@@ -1,8 +1,8 @@
 
 public class CartOrders {
-    String itemName;
-    int quantity;
-    float totalPrice;
+    private final String itemName;
+    private int quantity;
+    private float totalPrice;
 
     public CartOrders(String itemName, int quantity, float totalPrice) {
         this.itemName = itemName;

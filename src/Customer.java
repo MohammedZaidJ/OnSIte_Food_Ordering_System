@@ -1,18 +1,15 @@
 import category.Item;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Customer {
-    float totalPrice = 0, price = 0, itemPrice;
+    private float totalPrice = 0, price = 0, itemPrice;
     ArrayList<CartOrders> cart = new ArrayList<>();
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc = new Scanner(System.in);
     Menu menu=Menu.getMenu();
-    int i, itemNo, quantity, count;
-    String itemName;
-    char menuNo;
-    boolean bool;
+    private int i;
+    private int itemNo;
 
     public void displayCart() {
         System.out.println("====================== Cart ========================");
@@ -49,6 +46,7 @@ public class Customer {
                 count = 10;
                 System.err.println("Enter the valid key");
             }
+            boolean bool;
             switch (count) {
                 case 1 ->  ///view Menu
                         menu.DisplayMenu(1);
@@ -56,7 +54,7 @@ public class Customer {
                 case 2 -> {////order food
                     menu.DisplayMenu(1);
                     System.out.println("Select which item: f:food b:beverages");
-                    menuNo = Character.toLowerCase(sc.nextLine().charAt(0));
+                    char menuNo = Character.toLowerCase(sc.nextLine().charAt(0));
                     if (menuNo == 'f')
                         addItemToCart(menu.foodMenu);
                     else
@@ -69,9 +67,12 @@ public class Customer {
                         System.out.println("Enter the cart item number:");
                         itemNo = Integer.parseInt(sc.nextLine());
                         itemNo--;
-                        System.out.printf("\nItem Name : %s\n" +
-                                "Quantity  : %d\n" +
-                                "Price     : %.2f\n", cart.get(itemNo).getItemName(), cart.get(itemNo).getQuantity(), cart.get(itemNo).getTotalPrice());
+                        System.out.printf("""
+
+                                Item Name : %s
+                                Quantity  : %d
+                                Price     : %.2f
+                                """, cart.get(itemNo).getItemName(), cart.get(itemNo).getQuantity(), cart.get(itemNo).getTotalPrice());
                         bool = false;
                         if (itemNo < cart.size() && itemNo > -1) {
                             totalPrice -= (cart.get(itemNo).getTotalPrice() * 0.06 + cart.get(itemNo).getTotalPrice());
@@ -171,7 +172,7 @@ public class Customer {
 
     private void addItemToCart(ArrayList<Item> menu) {//order food
         System.out.println("Enter the dish number:");
-        count = 1;
+        int count = 1;
         do {
             try {
                 itemNo = Integer.parseInt(sc.nextLine());
@@ -229,7 +230,7 @@ public class Customer {
     }
 
     private void getSizeFromMenu(ArrayList<Item> Menu, int itemNo) {
-        itemName = cart.get(itemNo).getItemName();
+        String itemName = cart.get(itemNo).getItemName();
         for (Item fd : Menu) {
             if (fd.getItemName().equalsIgnoreCase(itemName)) {
                 if (fd.getSize().equalsIgnoreCase("unlimited")) {
@@ -253,7 +254,7 @@ public class Customer {
                 }
 
                 System.out.println("Enter the quantity :");
-                quantity = Integer.parseInt(sc.nextLine());
+                int quantity = Integer.parseInt(sc.nextLine());
                 cart.get(itemNo).setTotalPrice(price * quantity);//UPDATE CART
                 cart.get(itemNo).setQuantity(quantity);
                 itemPrice = cart.get(itemNo).getTotalPrice();
