@@ -33,17 +33,6 @@ public class Main {
         }
     }while(count!=0);
 
-//
-//        Menu menu=new Menu();
-//        menu.editMenu();
-
-////
-//        Customer customer1=new Customer();
-//        customer1.customerView();
-//        CustomerOrderList orderList= CustomerOrderList.getOrderList();
-//        orderList.print();
-        // limited unlimited
-        // item in food remove
 
     }
 }
