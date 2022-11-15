@@ -32,12 +32,12 @@ public class CustomerOrderList {
         for (Order o : orders) {
             if (!o.getOrderStatus().equalsIgnoreCase("notCompleted")) {
                 ArrayList<CartOrders> items = o.getOrderItems();
-                System.out.printf("%5d %12s %13d ", count++, o.getCustomerName(), o.getTableNo());
+                System.out.printf("%5d. %12s %13d ", count++, o.getCustomerName(), o.getTableNo());
                 System.out.printf("%13.2f %15s  %13s", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
                 for (int i = 0; i < items.size(); i++) {
-                    System.out.printf("\t%10d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
+                    System.out.printf("\t%5d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
                     if (items.size()>=1 && i<items.size()-1)
-                        System.out.print(",\n                                                                           ");
+                        System.out.print(",\n                                                                                ");
                 }
                 System.out.println();
             }
@@ -60,6 +60,16 @@ public class CustomerOrderList {
     }
 
     public void conformOrder(int index) {
+        count=-1;int i=-1;
+        for(Order o:orders){i++;
+            if(o.getOrderStatus().equalsIgnoreCase("notCompleted")){
+                count++;
+                if(index==count) {
+                    index = i;
+                    break;
+                }
+            }
+        }
         System.out.println("=====================================================");
         System.out.println(" Customer Details:-");
         System.out.println(" Name    : "+orders.get(index).getCustomerName());
@@ -105,12 +115,12 @@ public class CustomerOrderList {
         for (Order o : orders) {
             if (o.getOrderStatus().equalsIgnoreCase("notCompleted")) {
                 ArrayList<CartOrders> items = o.getOrderItems();
-                System.out.printf("%5d %10s %14d ", count++, o.getCustomerName(), o.getTableNo());
+                System.out.printf("%5d. %10s %14d ", count++, o.getCustomerName(), o.getTableNo());
                 System.out.printf("%13.2f %15s  %13s\t", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
                 for (int i = 0; i < items.size(); i++) {
-                    System.out.printf("%10d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
+                    System.out.printf("%5d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
                     if (items.size()>=1 && i<items.size()-1)
-                        System.out.print(",\n                                                                           ");
+                        System.out.print(",\n                                                                                ");
                 }
                 System.out.println();
             }
