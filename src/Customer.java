@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Customer {
     private float totalPrice = 0, price = 0, itemPrice;
-    ArrayList<CartOrders> cart = new ArrayList<>();
+    private final ArrayList<CartOrders> cart = new ArrayList<>();
     CustomerOrderList orderList = CustomerOrderList.getOrderList();
     Scanner sc = new Scanner(System.in);
     Menu menu=Menu.getMenu();
@@ -49,10 +49,10 @@ public class Customer {
             boolean bool;
             switch (count) {
                 case 1 ->  ///view Menu
-                        menu.DisplayMenu(1);
+                        menu.displayMenu(1);
 
                 case 2 -> {////order food
-                    menu.DisplayMenu(1);
+                    menu.displayMenu(1);
                     System.out.println("Select which item: f:food b:beverages");
                     char menuNo = Character.toLowerCase(sc.nextLine().charAt(0));
                     if (menuNo == 'f')

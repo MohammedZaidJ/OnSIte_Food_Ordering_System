@@ -3,20 +3,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    private static Menu menu = null;
+    static volatile Menu menu = null;
 
     private Menu() {
         addToMenu();
     }
 
-    static public Menu getMenu() {
+    public static Menu getMenu() {
         if (menu == null) {
-            menu = new Menu();
+            synchronized (Menu.class){ /// DOUBLE-CHECKING LOCKING BLOCK IN JAVA ^_^...
+             if(menu==null){
+                 menu = new Menu();
+             }
+            }
         }
         return menu;
     }
-
-
     ArrayList<Item> foodMenu = new ArrayList<>();
     ArrayList<Item> beverages = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
@@ -53,7 +55,7 @@ public class Menu {
         System.out.println("=====================================================================================");
         i = 1;
         for (Item o : foodMenu) {
-            if (check == 1 && o.getStatus().equals("available"))
+            if (check == 1 && o.getStatus().equalsIgnoreCase("available"))
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f\n", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
             else if (check == 0) {
                 System.out.printf("%6d %24s %10s %18s %10.1f/%6.1f", i++, o.getItemName(), o.getPermitStatus(), o.getSize(), o.getMediumSizePrice(), o.getLargeSizePrice());
@@ -83,7 +85,7 @@ public class Menu {
 
     }
 
-    public void DisplayMenu(int check) {
+    public void displayMenu(int check) {
         displayFoodMenu(check);
         System.out.println("\n");
         displayBeverageMenu(check);
@@ -111,12 +113,12 @@ public class Menu {
                 }
                 switch (count) {
                     case 1 -> //View menu
-                            DisplayMenu(0);
+                            displayMenu(0);
                     case 2 -> //Add new food
                             addItemTOMenu(key);
 
                     case 3 -> {//Modify menu
-                        DisplayMenu(0);
+                        displayMenu(0);
                         System.out.println("Select which item: f:food b:beverages");
                         c = Character.toLowerCase(sc.nextLine().charAt(0));
                         if (c == 'f')
@@ -126,7 +128,7 @@ public class Menu {
                         System.out.println("=======================================");
                     }
                     case 4 -> { //Remove food
-                        DisplayMenu(0);
+                        displayMenu(0);
                         System.out.println("Select which item: f:food b:beverages");
                         c = Character.toLowerCase(sc.nextLine().charAt(0));
                         if (c == 'f') deleteItemFromMenu(foodMenu, key);
@@ -264,10 +266,10 @@ public class Menu {
             System.out.println("Enter the medium size price:");
             mediumSizePrice = Float.parseFloat(sc.nextLine());
             if (sizeNO == 2) {
-                size = "None";
+                size = "unlimited";
                 System.out.println("Enter the large size price:");
                 largeSizePrice = Float.parseFloat(sc.nextLine());
-            } else size = "Available";
+            } else size = "limited";
             System.out.println("Select which list to add item: f:food b:beverages");
             c = Character.toLowerCase(sc.nextLine().charAt(0));
             String status = "Available";
