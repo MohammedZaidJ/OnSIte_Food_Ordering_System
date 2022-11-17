@@ -32,30 +32,35 @@ public class CustomerOrderList {
     public void viewOrders() {
         count = 1;
         int line = 0;
-        System.out.println("============================================= ORDER LIST ==========================================");
-        System.out.printf("%5s %10s %10s %10s %15s %15s %20s\n", "CustomerNo", "CustomerName", "TableNo", "Price", "Order Status", "Remark", "Items");
-        System.out.println("===================================================================================================");
-        for (Order o : orders) {
-            if (!o.getOrderStatus().equalsIgnoreCase("notCompleted")) {
-                ArrayList<CartOrders> items = o.getOrderItems();
-                System.out.printf("%5d. %12s %13d ", count++, o.getCustomerName(), o.getTableNo());
-                System.out.printf("%13.2f %15s  %13s", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
-                for (int i = 0; i < items.size(); i++) {
-                    System.out.printf("\t%5d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
-                    if (items.size() >= 1 && i < items.size() - 1)
-                        System.out.print(",\n                                                                                ");
+        int totalOrder=orders.size()-pendingOrder();
+        if(totalOrder>0) {
+            System.out.println("============================================= ORDER LIST ==========================================");
+            System.out.printf("%5s %10s %10s %10s %15s %15s %20s\n", "CustomerNo", "CustomerName", "TableNo", "Price", "Order Status", "Remark", "Items");
+            System.out.println("===================================================================================================");
+            for (Order o : orders) {
+                if (!o.getOrderStatus().equalsIgnoreCase("notCompleted")) {
+                    ArrayList<CartOrders> items = o.getOrderItems();
+                    System.out.printf("%5d. %12s %13d ", count++, o.getCustomerName(), o.getTableNo());
+                    System.out.printf("%13.2f %15s  %13s", o.getTotalPrice(), o.getOrderStatus(), o.getRemark());
+                    for (int i = 0; i < items.size(); i++) {
+                        System.out.printf("\t%5d x%5s", items.get(i).getQuantity(), items.get(i).getItemName());
+                        if (items.size() >= 1 && i < items.size() - 1)
+                            System.out.print(",\n                                                                                ");
+                    }
+                    System.out.println();
                 }
-                System.out.println();
+                if (totalOrder > 1 && line < totalOrder - 1) {
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                }
+                line++;
             }
-            if (orders.size() > 1 && line < orders.size() - 1) {
-                System.out.println("---------------------------------------------------------------------------------------------------");
-            }
-            line++;
+            System.out.println("===================================================================================================");
+            System.out.printf("                                         TotalSales =   %.2f\n", totalSale);
+            System.out.println("===================================================================================================");
         }
-        System.out.println("===================================================================================================");
-        System.out.printf("                                         TotalSales =   %.2f\n", totalSale);
-        System.out.println("===================================================================================================");
-
+        else{
+            System.out.println("Still Not Confirm Orders");
+        }
     }
 
 
@@ -88,7 +93,7 @@ public class CustomerOrderList {
         System.out.println(" TableNo : " + orders.get(index).getTableNo());
         System.out.println(" Price   : " + orders.get(index).getTotalPrice());
         System.out.print(" Get Payment From Customer: ");
-        System.out.println(orders.get(index).getCustomerName() + " Selected payment Mode as " + orders.get(index).getPaymentBy().toUpperCase());
+        System.out.println(orders.get(index).getCustomerName() + " Selected Payment Mode as " + orders.get(index).getPaymentBy().toUpperCase());
         System.out.println(" 1. Confirm payment");
         System.out.println(" 2. Cancel order");
         System.out.println("Enter your choice :");
@@ -137,7 +142,7 @@ public class CustomerOrderList {
                 }
                 System.out.println();
             }
-            if (orders.size() > 1 && line < orders.size() - 1) {
+            if (pendingOrder() > 1 && line < pendingOrder() - 1) {
                 System.out.println("---------------------------------------------------------------------------------------------------");
             }
             line++;
